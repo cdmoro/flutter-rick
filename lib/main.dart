@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Rick & Morty API',
+      title: 'Flutter Rick!',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -91,7 +91,7 @@ class _MyHomePageState extends State<MyHomePage> {
     // than having to individually change instances of widgets.
     return Scaffold(
       appBar: AppBar(
-        title: Text("Rick & Morty API test"),
+        title: Text("Flutter Rick!"),
       ),
       drawer: Drawer(
         child: ListView(
