@@ -1,4 +1,4 @@
-package com.example.flutterweb
+package com.example.flutterrick
 
 import io.flutter.embedding.android.FlutterActivity
 

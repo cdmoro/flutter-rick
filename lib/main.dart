@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutterweb/components/CharacterCard.dart';
 import 'package:http/http.dart' as http;
+import 'package:flutterrick/components/CharacterCard.dart';
 
 import './models/Character.dart';
 
@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Rick & Morty API',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
         // closer together (more dense) than on mobile platforms.
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(),
     );
   }
 }
@@ -82,6 +82,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
     //
@@ -113,28 +114,26 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      body: Center(
-        child: FutureBuilder<List<Character>>(
-          future: characters,
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              return GridView.builder(
-                shrinkWrap: true,
-                gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 4),
-                itemCount: snapshot.data.length,
-                itemBuilder: (context, index) {
-                  return CharacterCard(snapshot.data[index]);
-                },
-              );
-            } else if (snapshot.hasError) {
-              return Text("${snapshot.error}");
-            }
+      body: FutureBuilder<List<Character>>(
+        future: characters,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return GridView.builder(
+              shrinkWrap: true,
+              gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: size.width~/250),
+              itemCount: snapshot.data.length,
+              itemBuilder: (context, index) {
+                return CharacterCard(snapshot.data[index]);
+              },
+            );
+          } else if (snapshot.hasError) {
+            return Text("${snapshot.error}");
+          }
 
-            // By default, show a loading spinner.
-            return CircularProgressIndicator();
-          },
-        ),
+          // By default, show a loading spinner.
+          return CircularProgressIndicator();
+        },
       ),
     );
   }
